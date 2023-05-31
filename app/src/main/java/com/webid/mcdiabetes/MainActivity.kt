@@ -54,6 +54,34 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        btn_login.setOnClickListener()
+        {
+            val username = et_username.text.toString()
+            val password= et_password.text.toString()
+
+            auth.signInWithEmailAndPassword(username,password).addOnCompleteListener(this)
+            {
+                task->
+
+                if(task.isSuccessful)
+                {
+                    val intent = Intent(this,BurgerOrder::class.java)
+                    startActivity(intent)
+                }
+                else
+                {
+                    Toast.makeText(this,"please check your credentials", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+                .addOnFailureListener(this)
+                {
+                    task->
+                    Toast.makeText(this,task.message.toString(),Toast.LENGTH_LONG).show()
+                }
+
+        }
+
 
     }
 }
